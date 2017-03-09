@@ -9,6 +9,7 @@ A set of machine learing algorithms implemented in Python 3.5. Programs can one 
 3. Algorithm is implemented both ways***
 
 The included programs are:
+
 1. Linear Regression***
 2. Logistic Regression for Classification***
 3. Logistic Regression for Classification with PCA***
