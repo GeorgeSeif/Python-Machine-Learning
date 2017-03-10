@@ -1,7 +1,8 @@
 import numpy as np
-from sklearn import datasets
+from sklearn import neighbors, datasets
 from sklearn import decomposition
 import random
+from sklearn.neighbors import NearestNeighbors
 
 def normalize_data(data):
 	num_elements = len(data)
@@ -103,7 +104,10 @@ train_data = pca.transform(train_data)
 
 X_train, X_test, y_train, y_test = train_test_split(train_data, train_labels, test_size=0.5)
 
-clf = KNN(k=3)
+# *********************************************
+# Apply the KNN Classifier MANUALLY
+# *********************************************
+clf = KNN(k=5)
 predicted_labels = clf.predict(X_test, X_train, y_train)
 
 # Compute the training accuracy
@@ -119,4 +123,31 @@ for index in range(len(y_test)):
 Accuracy /= len(train_labels)
 
 # Print stuff
-print("Classification Accuracy = ", Accuracy)
+print("Manual KNN Classification Accuracy = ", Accuracy)
+
+# *********************************************
+# Apply the KNN Classifier using Sklearn
+# *********************************************
+# Create the K-Means Clustering Object 
+unique_labels = np.unique(train_labels)
+num_classes = len(unique_labels)
+clf = neighbors.KNeighborsClassifier(n_neighbors=5, algorithm='brute')
+
+KNN = clf.fit(X_train, y_train)
+
+
+# Compute the training accuracy
+Accuracy = 0
+for index in range(len(y_test)):
+	# Cluster the data using K-Means
+	current_sample = X_test[index].reshape(1,-1) 
+	current_label = y_test[index]
+	predicted_label = KNN.predict(current_sample)
+
+	if current_label == predicted_label:
+		Accuracy += 1
+
+Accuracy /= len(train_labels)
+
+# Print stuff
+print("Sklean KNN Classification Accuracy = ", Accuracy)

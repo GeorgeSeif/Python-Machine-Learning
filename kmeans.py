@@ -94,7 +94,7 @@ train_labels = np.array(iris.target)
 num_features = train_data.data.shape[1]
 
 # Apply PCA to the data to reduce its dimensionality
-pca = decomposition.PCA(n_components=2)
+pca = decomposition.PCA(n_components=3)
 pca.fit(train_data)
 train_data = pca.transform(train_data)
 
@@ -122,4 +122,31 @@ for index in range(len(train_labels)):
 Accuracy /= len(train_labels)
 
 # Print stuff
-print("Classification Accuracy = ", Accuracy)
+print("Manual K-Means Classification Accuracy = ", Accuracy)
+
+# *********************************************
+# Apply K-Means Clustering using Sklearn
+# *********************************************
+# Create the K-Means Clustering Object 
+unique_labels = np.unique(train_labels)
+num_classes = len(unique_labels)
+clf = cluster.KMeans(n_clusters=num_classes, max_iter=3000, n_init=10)
+
+kmeans = clf.fit(train_data)
+
+
+# Compute the training accuracy
+Accuracy = 0
+for index in range(len(train_labels)):
+	# Cluster the data using K-Means
+	current_sample = train_data[index].reshape(1,-1) 
+	current_label = train_labels[index]
+	predicted_label = kmeans.predict(current_sample)
+
+	if current_label == predicted_label:
+		Accuracy += 1
+
+Accuracy /= len(train_labels)
+
+# Print stuff
+print("Sklean K-Means Classification Accuracy = ", Accuracy)
