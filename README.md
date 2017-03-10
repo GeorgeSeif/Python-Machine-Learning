@@ -16,6 +16,7 @@ The included programs are:
 4. Naive Bayes Classification***
 5. Support Vector Machine Classification**
 6. Neural Network Classification**
+7. Neural Network Regression**
 
 ## Requirements
 1. Python 3.5

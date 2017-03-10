@@ -21,7 +21,7 @@ def normalize_data(data):
 
 	return data
 
-clf = clf = clf = MLPClassifier(solver='sgd', learning_rate_init=0.01, momentum=0.9, early_stopping=False, learning_rate='constant', hidden_layer_sizes=(15, 10, 5), max_iter=500, verbose=True)
+clf = MLPClassifier(solver='sgd', learning_rate_init=0.01, momentum=0.9, early_stopping=False, learning_rate='constant', hidden_layer_sizes=(15, 10, 5), max_iter=500, verbose=True)
 
 # Get the training data
 # Import the Iris flower dataset
