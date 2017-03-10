@@ -3,14 +3,7 @@ from sklearn import datasets
 from sklearn import decomposition
 from sklearn import cluster
 import random
-
-# Calculate the distance between two vectors
-def euclidean_distance(vec_1, vec_2):
-    distance = 0
-    for i in range(len(vec_1)):
-        distance += pow((vec_1[i] - vec_2[i]), 2)
-
-    return np.sqrt(distance)
+import ml_helpers
 
 class KMeans():
     def __init__(self, k=2, max_iterations=500, n_init=3):
@@ -31,7 +24,7 @@ class KMeans():
         closest_i = None
         closest_distance = float("inf")
         for i, centroid in enumerate(centroids):
-            distance = euclidean_distance(sample, centroid)
+            distance = ml_helpers.euclidean_distance(sample, centroid)
             if distance < closest_distance:
                 closest_i = i
                 closest_distance = distance

@@ -2,23 +2,7 @@ from sklearn import datasets
 import numpy as np
 import collections
 from sklearn.naive_bayes import GaussianNB
-
-def compute_mean_and_var(data):
-	num_elements = len(data)
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + sample
-	mean_features = np.divide(total, num_elements)
-
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + np.square(sample - mean_features)
-
-	std_features = np.divide(total, num_elements)
-
-	var_features = std_features ** 2
-
-	return mean_features, var_features
+import ml_helpers
 
 def compute_gaussian_probability(val, mean, var):
 	coeff = 1/(np.sqrt(2*np.pi) * np.sqrt(var))
@@ -35,7 +19,7 @@ num_features = train_data.data.shape[1]
 unique_labels, class_probs = np.unique(train_labels, return_counts=True)
 
 # Get the mean and variance of the features for ALL of the classes
-mean_features, var_features = compute_mean_and_var(train_data)
+mean_features, var_features = ml_helpers.compute_mean_and_var(train_data)
 
 # Get the mean and variance of the features for EACH of the classes
 class_mean_features = np.zeros((len(unique_labels), num_features))
@@ -45,7 +29,7 @@ for curr_label in unique_labels:
 	class_data_indices = np.where(train_labels == curr_label)[0]
 
 	temp_data = train_data[class_data_indices]
-	class_mean_features[count, :], class_var_features[count, :] = compute_mean_and_var(temp_data)
+	class_mean_features[count, :], class_var_features[count, :] = ml_helpers.compute_mean_and_var(temp_data)
 	count = count + 1
 
 

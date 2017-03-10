@@ -3,46 +3,7 @@ from sklearn import neighbors, datasets
 from sklearn import decomposition
 import random
 from sklearn.neighbors import NearestNeighbors
-
-def normalize_data(data):
-	num_elements = len(data)
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + sample
-	mean_features = np.divide(total, num_elements)
-
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + np.square(sample - mean_features)
-
-	std_features = np.divide(total, num_elements)
-
-	for index, sample in enumerate(data):
-		data[index] = np.divide((sample - mean_features), std_features) 
-
-	return data
-
-# Calculate the distance between two vectors
-def euclidean_distance(vec_1, vec_2):
-    distance = 0
-    for i in range(len(vec_1)):
-        distance += pow((vec_1[i] - vec_2[i]), 2)
-
-    return np.sqrt(distance)
-
-# Split the data into train and test sets
-def train_test_split(X, y, test_size=0.2):
-    # Randomly shuffle the data
-    combined = list(zip(train_data, train_labels))
-    random.shuffle(combined)
-    train_data[:], train_labels[:] = zip(*combined)
-
-    # Split the training data from test data in the ratio specified in test_size
-    split_i = len(y) - int(len(y) // (1 / test_size))
-    x_train, x_test = train_data[:split_i], train_data[split_i:]
-    y_train, y_test = train_labels[:split_i], train_labels[split_i:]
-
-    return x_train, x_test, y_train, y_test
+import ml_helpers 
 
 class KNN():
     def __init__(self, k=5):
@@ -70,7 +31,7 @@ class KNN():
 
             # Calculate the distance form each observed sample to the sample we wish to predict
             for j, observed_sample in enumerate(X_train):
-                distance = euclidean_distance(test_sample, observed_sample)
+                distance = ml_helpers.euclidean_distance(test_sample, observed_sample)
                 label = y_train[j]
 
                 # Add neighbor information
@@ -94,7 +55,7 @@ train_labels = np.array(iris.target)
 num_features = train_data.data.shape[1]
 
 # Normalize the training data
-train_data = normalize_data(train_data)
+train_data = ml_helpers.normalize_data(train_data)
 
 # Apply PCA to the data to reduce its dimensionality
 pca = decomposition.PCA(n_components=2)
@@ -102,7 +63,7 @@ pca.fit(train_data)
 train_data = pca.transform(train_data)
 
 
-X_train, X_test, y_train, y_test = train_test_split(train_data, train_labels, test_size=0.5)
+X_train, X_test, y_train, y_test = ml_helpers.train_test_split(train_data, train_labels, test_size=0.5)
 
 # *********************************************
 # Apply the KNN Classifier MANUALLY

@@ -2,9 +2,8 @@ import csv
 import numpy as np
 from sklearn import datasets
 from sklearn import decomposition
-import random
 from sklearn.linear_model import LogisticRegression
-
+import ml_helpers
 
 
 def normalize_data(data):
@@ -80,20 +79,17 @@ def pca(data, exp_var_percentage=95):
 iris = datasets.load_iris()
 train_data = np.array(iris.data)
 train_labels = np.array(iris.target)
-num_features = train_data.data.shape[1]
 
 # Randomly shuffle the data
-combined = list(zip(train_data, train_labels))
-random.shuffle(combined)
-train_data[:], train_labels[:] = zip(*combined)
+train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
 
 # Normalize the training data
-train_data = normalize_data(train_data)
+train_data = ml_helpers.normalize_data(train_data)
 
 # ***************************************************************
 # Apply PCA MANUALLY
 # ***************************************************************
-train_data = pca(train_data, 90)
+train_data = ml_helpers.pca(train_data, 90)
 
 # ***************************************************************
 # Apply PCA using Sklean

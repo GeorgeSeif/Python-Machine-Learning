@@ -3,24 +3,7 @@ from sklearn.linear_model import LinearRegression
 import numpy as np
 import random
 import matplotlib.pyplot as plt
-
-def normalize_data(data):
-	num_elements = len(data)
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + sample
-	mean_features = np.divide(total, num_elements)
-
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + np.square(sample - mean_features)
-
-	std_features = np.divide(total, num_elements)
-
-	for index, sample in enumerate(data):
-		data[index] = np.divide((sample - mean_features), std_features) 
-
-	return data
+import ml_helpers
 
 # Load the Boston housing data set to regression training
 # NOTE that this loads as a dictionairy
@@ -31,12 +14,10 @@ train_labels = np.array(boston_dataset.target)
 num_features = boston_dataset.data.shape[1]
 
 # Randomly shuffle the data
-combined = list(zip(train_data, train_labels))
-random.shuffle(combined)
-train_data[:], train_labels[:] = zip(*combined)
+train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
 
 # Normalize the data to have zero-mean and unit variance
-train_data = normalize_data(train_data)
+train_data = ml_helpers.normalize_data(train_data)
 
 weights = np.zeros(num_features + 1)
 

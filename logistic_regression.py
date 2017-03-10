@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import random
 from sklearn.linear_model import LogisticRegression
+import ml_helpers
 
 # Read a CSV file into a list of tuples
 def csv_to_list(file_name):
@@ -17,39 +18,15 @@ def csv_to_list(file_name):
 			new_list.append(content)
 	return new_list
 
-def normalize_data(data):
-	num_elements = len(data)
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + sample
-	mean_features = np.divide(total, num_elements)
-
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + np.square(sample - mean_features)
-
-	std_features = np.divide(total, num_elements)
-
-	for index, sample in enumerate(data):
-		data[index] = np.divide((sample - mean_features), std_features) 
-
-	return data
-
-def sigmoid(val):
-	return np.divide(1, (1 + np.exp(-1*val)))
-
 # Get the training data
 data = np.asarray(csv_to_list("wine_data.csv"), dtype=np.float32)
 train_data = data[:, 1:]
 train_labels = data[:, 0]
 
-# Randomly shuffle the data
-combined = list(zip(train_data, train_labels))
-random.shuffle(combined)
-train_data[:], train_labels[:] = zip(*combined)
+train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
 
 # Normalize the training data
-train_data = normalize_data(train_data)
+train_data = ml_helpers.normalize_data(train_data)
 
 num_epochs = 3
 learning_rate = 0.01
@@ -83,7 +60,7 @@ for curr_epoch in range(num_epochs):
 			class_predictions[class_index] = weights[1:, class_index].dot(sample) + weights[0, class_index]
 			
 		
-		class_predictions = sigmoid(class_predictions)
+		class_predictions = ml_helpers.sigmoid(class_predictions)
 
 		cost = cost +  -1*np.sum((curr_one_hot_labels.dot(np.log(class_predictions)) + (1 - curr_one_hot_labels).dot(np.log(1 - class_predictions))))
 

@@ -2,24 +2,7 @@ import numpy as np
 from sklearn import datasets
 from sklearn import svm
 import random
-
-def normalize_data(data):
-	num_elements = len(data)
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + sample
-	mean_features = np.divide(total, num_elements)
-
-	total = [0] * data.shape[1]
-	for sample in data:
-		total = total + np.square(sample - mean_features)
-
-	std_features = np.divide(total, num_elements)
-
-	for index, sample in enumerate(data):
-		data[index] = np.divide((sample - mean_features), std_features) 
-
-	return data
+import ml_helpers
 
 # Get the training data
 # Import the Iris flower dataset
