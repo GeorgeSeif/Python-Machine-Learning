@@ -28,12 +28,20 @@ def normalize_data(data):
 def sigmoid(val):
 	return np.divide(1, (1 + np.exp(-1*val)))
 
-def pca(data, exp_var_percentage=95):
+def compute_cov_mat(data):
 	# Compute the mean of the data
 	mean_vec = np.mean(data, axis=0)
 
 	# Compute the covariance matrix
 	cov_mat = (data - mean_vec).T.dot((data - mean_vec)) / (data.shape[0]-1)
+
+	return cov_mat
+
+
+def pca(data, exp_var_percentage=95):
+
+	# Compute the covariance matrix
+	cov_mat = compute_cov_mat(data)
 
 	# Compute the eigen values and vectors of the covariance matrix
 	eig_vals, eig_vecs = np.linalg.eig(cov_mat)

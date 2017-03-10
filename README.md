@@ -17,6 +17,8 @@ The included programs are:
 5. Support Vector Machine Classification**
 6. Neural Network Classification**
 7. Neural Network Regression**
+8. K-Means Clustering*
+9. K-Nearest-Neighbor*
 
 ## Requirements
 1. Python 3.5
