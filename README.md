@@ -22,7 +22,10 @@ The included programs are:
 
 ## Requirements
 1. Python 3.5
-2. Scikit Learn
-3. Numpy
-4. Scipy
+2. Numpy
+3. Scipy
+4. Scikit Learn
 5. Matplotlib
+
+## Installation
+The above packages can be installed by running the commands listed in the "install.txt" file
