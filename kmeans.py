@@ -6,7 +6,7 @@ import random
 import ml_helpers
 
 class KMeans():
-    def __init__(self, k=2, max_iterations=500, n_init=3):
+    def __init__(self, k=2, max_iterations=500):
         self.k = k
         self.max_iterations = max_iterations
 
