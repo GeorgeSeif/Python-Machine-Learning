@@ -109,3 +109,17 @@ def pca(data, exp_var_percentage=95):
 	pca_data = data.dot(proj_mat)
 
 	return pca_data
+
+# 1D Gaussian Function
+def gaussian_1d(val, mean, standard_dev):
+	coeff = 1 / (standard_dev * np.sqrt(2 * np.pi))
+	exponent = (-1 * (val - mean) ** 2) / (2 * (standard_dev ** 2))
+	gauss = coeff * np.exp(exponent)
+	return gauss
+
+# 2D Gaussian Function
+def gaussian_2d(x_val, y_val, x_mean, y_mean, x_standard_dev, y_standard_dev):
+	x_gauss = gaussian_1d(x_val, x_mean, x_standard_dev)
+	y_gauss = gaussian_1d(y_val, y_mean, y_standard_dev)
+	gauss = x_gauss * y_gauss
+	return gauss

@@ -12,11 +12,11 @@ class KMeans():
         self.kmeans_centroids = []
 
     # Initialize the centroids as random samples
-    def _init_random_centroids(self, X):
-        n_samples, n_features = np.shape(X)
+    def _init_random_centroids(self, data):
+        n_samples, n_features = np.shape(data)
         centroids = np.zeros((self.k, n_features))
         for i in range(self.k):
-            centroid = X[np.random.choice(range(n_samples))]
+            centroid = data[np.random.choice(range(n_samples))]
             centroids[i] = centroid
         return centroids
 
@@ -32,45 +32,45 @@ class KMeans():
         return closest_i
 
     # Assign the samples to the closest centroids to create clusters
-    def _create_clusters(self, centroids, X):
-        n_samples = np.shape(X)[0]
+    def _create_clusters(self, centroids, data):
+        n_samples = np.shape(data)[0]
         clusters = [[] for _ in range(self.k)]
-        for sample_i, sample in enumerate(X):		
+        for sample_i, sample in enumerate(data):		
             centroid_i = self._closest_centroid(sample, centroids)
             clusters[centroid_i].append(sample_i)
         return clusters
 
     # Calculate new centroids as the means of the samples in each cluster
-    def _calculate_centroids(self, clusters, X):
-        n_features = np.shape(X)[1]
+    def _calculate_centroids(self, clusters, data):
+        n_features = np.shape(data)[1]
         centroids = np.zeros((self.k, n_features))
         for i, cluster in enumerate(clusters):
-            centroid = np.mean(X[cluster], axis=0)
+            centroid = np.mean(data[cluster], axis=0)
             centroids[i] = centroid
         return centroids
 
     # Classify samples as the index of their clusters
-    def _get_cluster_labels(self, clusters, X):
+    def _get_cluster_labels(self, clusters, data):
         # One prediction for each sample
-        y_pred = np.zeros(np.shape(X)[0])
+        y_pred = np.zeros(np.shape(data)[0])
         for cluster_i, cluster in enumerate(clusters):
             for sample_i in cluster:
                 y_pred[sample_i] = cluster_i
         return y_pred
 
     # Do K-Means clustering and return the centroids of the clusters
-    def fit(self, X):
+    def fit(self, data):
         # Initialize centroids
-        centroids = self._init_random_centroids(X)
+        centroids = self._init_random_centroids(data)
 
         # Iterate until convergence or for max iterations
         for _ in range(self.max_iterations):
             # Assign samples to closest centroids (create clusters)
-            clusters = self._create_clusters(centroids, X)
+            clusters = self._create_clusters(centroids, data)
 
             prev_centroids = centroids
             # Calculate new centroids from the clusters
-            centroids = self._calculate_centroids(clusters, X)
+            centroids = self._calculate_centroids(clusters, data)
 
             # If no centroids have changed => convergence
             diff = centroids - prev_centroids
@@ -81,15 +81,15 @@ class KMeans():
         return centroids
 
     # Predict the class of each sample
-    def predict(self, X):
+    def predict(self, data):
 
         # First check if we have determined the K-Means centroids
         if not self.kmeans_centroids.any():
             raise Exception("K-Means centroids have not yet been determined.\nRun the K-Means 'fit' function first.")
 
-        clusters = self._create_clusters(self.kmeans_centroids, X)
+        clusters = self._create_clusters(self.kmeans_centroids, data)
 
-        predicted_labels = self._get_cluster_labels(clusters, X)
+        predicted_labels = self._get_cluster_labels(clusters, data)
 
         return predicted_labels
 

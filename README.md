@@ -19,6 +19,7 @@ The included programs are:
 7. Neural Network Regression * *
 8. K-Means Clustering * * *
 9. K-Nearest-Neighbor * * * 
+10. Mean-Shift Clustering *
 
 ## Requirements
 1. Python 3.5
