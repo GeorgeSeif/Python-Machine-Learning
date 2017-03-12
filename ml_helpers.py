@@ -16,7 +16,7 @@ def train_test_split(X, y, test_size=0.2):
 # Randomly shuffle the data
 def shuffle_data(data, labels):
 	if(len(data) != len(labels)):
-        raise Exception("The given data and labels do NOT have the same length")
+		raise Exception("The given data and labels do NOT have the same length")
 
 	combined = list(zip(data, labels))
 	random.shuffle(combined)
@@ -26,13 +26,13 @@ def shuffle_data(data, labels):
 # Calculate the distance between two vectors
 def euclidean_distance(vec_1, vec_2):
 	if(len(vec_1) != len(vec_2)):
-        raise Exception("The two vectors do NOT have equal length")
+		raise Exception("The two vectors do NOT have equal length")
 
-    distance = 0
-    for i in range(len(vec_1)):
-        distance += pow((vec_1[i] - vec_2[i]), 2)
+	distance = 0
+	for i in range(len(vec_1)):
+		distance += pow((vec_1[i] - vec_2[i]), 2)
 
-    return np.sqrt(distance)
+	return np.sqrt(distance)
 
 def compute_mean_and_var(data):
 	num_elements = len(data)

@@ -9,6 +9,7 @@ class KMeans():
     def __init__(self, k=2, max_iterations=500):
         self.k = k
         self.max_iterations = max_iterations
+        self.kmeans_centroids = []
 
     # Initialize the centroids as random samples
     def _init_random_centroids(self, X):
@@ -57,8 +58,8 @@ class KMeans():
                 y_pred[sample_i] = cluster_i
         return y_pred
 
-    # Do K-Means clustering and return cluster indices
-    def predict(self, X):
+    # Do K-Means clustering and return the centroids of the clusters
+    def fit(self, X):
         # Initialize centroids
         centroids = self._init_random_centroids(X)
 
@@ -76,7 +77,21 @@ class KMeans():
             if not diff.any():
                 break
 
-        return self._get_cluster_labels(clusters, X)
+        self.kmeans_centroids = centroids
+        return centroids
+
+    # Predict the class of each sample
+    def predict(self, X):
+
+        # First check if we have determined the K-Means centroids
+        if not self.kmeans_centroids.any():
+            raise Exception("K-Means centroids have not yet been determined.\nRun the K-Means 'fit' function first.")
+
+        clusters = self._create_clusters(self.kmeans_centroids, X)
+
+        predicted_labels = self._get_cluster_labels(clusters, X)
+
+        return predicted_labels
 
 
 # Get the training data
@@ -98,6 +113,8 @@ train_data = pca.transform(train_data)
 unique_labels = np.unique(train_labels)
 num_classes = len(unique_labels)
 clf = KMeans(k=num_classes, max_iterations=3000)
+
+centroids = clf.fit(train_data)
 
 predicted_labels = clf.predict(train_data)
 
