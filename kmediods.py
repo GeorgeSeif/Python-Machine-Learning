@@ -85,7 +85,7 @@ class KMediods():
 
     # Predict the class of each sample
     def predict(self, data):
-        # First check if we have determined the K-Means centroids
+        # First check if we have determined the K-Mediods centroids
         if not self.kmediods_centroids.any():
             raise Exception("Mean-Shift centroids have not yet been determined.\nRun the Mean-Shift 'fit' function first.")
 

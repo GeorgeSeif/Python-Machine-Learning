@@ -159,4 +159,4 @@ for index in range(len(train_labels)):
 Accuracy /= len(train_labels)
 
 # Print stuff
-print("Sklean K-Means Classification Accuracy = ", Accuracy)
+print("Sklearn K-Means Classification Accuracy = ", Accuracy)

@@ -21,6 +21,7 @@ The included programs are:
 9. K-Nearest-Neighbor * * * 
 10. Mean-Shift Clustering * * *
 11. K-Mediods Clustering *
+12. DBSCAN Clustering * * * 
 
 ## Requirements
 1. Python 3.5
