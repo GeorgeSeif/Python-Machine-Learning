@@ -30,6 +30,7 @@ train_data = ml_helpers.normalize_data(train_data)
 
 num_epochs = 3
 learning_rate = 0.01
+reg = 0.1
 
 unique_labels = np.unique(train_labels)
 num_classes = len(unique_labels)
@@ -62,10 +63,12 @@ for curr_epoch in range(num_epochs):
 		
 		class_predictions = ml_helpers.sigmoid(class_predictions)
 
-		cost = cost +  -1*np.sum((curr_one_hot_labels.dot(np.log(class_predictions)) + (1 - curr_one_hot_labels).dot(np.log(1 - class_predictions))))
+		cost = cost +  -1*np.sum((curr_one_hot_labels.dot(np.log(class_predictions)) + (1 - curr_one_hot_labels).dot(np.log(1 - class_predictions))))  + (reg * np.sum(weights ** 2, axis=1))
+
+		reg_array = np.append(0, np.full(num_features, reg))
 
 		for class_index in range(num_classes):
-			gradient_error[:, class_index] = gradient_error[:, class_index] + (curr_one_hot_labels[class_index] - class_predictions[class_index])*np.append(1, sample)
+			gradient_error[:, class_index] = gradient_error[:, class_index] + (curr_one_hot_labels[class_index] - class_predictions[class_index])*np.append(1, sample) + (reg_array * weights[:, class_index])
 
 		if curr_epoch == num_epochs - 1:
 			final_predictions[index] = class_predictions

@@ -21,8 +21,9 @@ train_data = ml_helpers.normalize_data(train_data)
 
 weights = np.zeros(num_features + 1)
 
-num_epochs = 10000
+num_epochs = 3000
 learning_rate = 0.001
+reg = 0.1
 
 final_predictions = [0] * len(train_labels)
 
@@ -37,9 +38,11 @@ for curr_epoch in range(num_epochs):
 		curr_label = train_labels[index]
 		prediction = weights[1:].dot(sample) + weights[0]
 
-		cost = cost + (prediction - curr_label) ** 2
+		cost = cost + (prediction - curr_label) ** 2 + (reg * np.sum(weights ** 2))
 
-		gradient_error = gradient_error + (curr_label - prediction)*np.append(1, sample)
+		reg_array = np.append(0, np.full(num_features, reg))
+
+		gradient_error = gradient_error + (curr_label - prediction)*np.append(1, sample) + (reg_array * weights)
 
 		if curr_epoch == num_epochs - 1:
 			final_predictions[index] = prediction
@@ -52,7 +55,7 @@ for curr_epoch in range(num_epochs):
 
 
 # ***************************************************************
-# Perform Linear Regression using Sklean
+# Perform Linear Regression using Sklearn
 # ***************************************************************
 lm = LinearRegression()
 lm.fit(train_data, train_labels)
