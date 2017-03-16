@@ -25,6 +25,24 @@ The included programs are:
 13. Decision Tree Regression * * * 
 14. Decision Tree Classification * * *
 
+## Helpers
+In addition the the main algorithm files, we have the following set of helper functions in the "ml_helpers.py" file:
+
+1. Train and Test data splitting
+2. Random shuffling of data
+3. Compute Euclidean Distance
+4. Compute Mean and Variance of features
+5. Normalize data
+6. Divide dataset based on feature threshold
+7. Compute entropy
+8. Compute Mean Squared Error
+9. Sigmoid function
+10. Derivative of the sigmoid function
+11. Compute the covariance matrix
+12. Perform PCA dimensionality reduction
+13. Gaussian function 1D
+14. Gaussian function 2D
+
 ## Requirements
 1. Python 3.5
 2. Numpy
