@@ -22,6 +22,8 @@ The included programs are:
 10. Mean-Shift Clustering * * *
 11. K-Mediods Clustering *
 12. DBSCAN Clustering * * * 
+13. Decision Tree Regression * * * 
+14. Decision Tree Classification * * *
 
 ## Requirements
 1. Python 3.5
