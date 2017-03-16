@@ -224,131 +224,136 @@ class ClassificationTree(DecisionTree):
         super(ClassificationTree, self).fit(X, y)
 
 
-# **************************************************************
-# Apply the Decision Tree for Classification Manually
-# **************************************************************
-# Get the training data
-# Import the Iris flower dataset
-iris = datasets.load_iris()
-train_data = np.array(iris.data)
-train_labels = np.array(iris.target)
-num_features = train_data.data.shape[1]
+def main():
 
-# Randomly shuffle the data
-train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
+	# **************************************************************
+	# Apply the Decision Tree for Classification Manually
+	# **************************************************************
+	# Get the training data
+	# Import the Iris flower dataset
+	iris = datasets.load_iris()
+	train_data = np.array(iris.data)
+	train_labels = np.array(iris.target)
+	num_features = train_data.data.shape[1]
 
-# Apply PCA to the data to reduce its dimensionality
-pca = decomposition.PCA(n_components=4)
-pca.fit(train_data)
-train_data = pca.transform(train_data)
+	# Randomly shuffle the data
+	train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
 
-
-X_train, X_test, y_train, y_test = ml_helpers.train_test_split(train_data, train_labels, test_size=0.4)
-
-clf = ClassificationTree()
-
-clf.fit(X_train, y_train)
-
-predicted_labels = clf.predict(X_test)
-
-# Compute the testing accuracy
-Accuracy = 0
-for index in range(len(predicted_labels)):
-	current_label = y_test[index]
-	predicted_label = predicted_labels[index]
-
-	if current_label == predicted_label:
-		Accuracy += 1
-
-Accuracy /= len(train_labels)
-
-# Print stuff
-print("Manual Decision Tree Classification Accuracy = ", Accuracy)
+	# Apply PCA to the data to reduce its dimensionality
+	pca = decomposition.PCA(n_components=4)
+	pca.fit(train_data)
+	train_data = pca.transform(train_data)
 
 
-# **************************************************************
-# Apply the Decision Tree for Classification using Sklearn
-# **************************************************************
+	X_train, X_test, y_train, y_test = ml_helpers.train_test_split(train_data, train_labels, test_size=0.4)
 
-clf = DecisionTreeClassifier()
+	clf = ClassificationTree()
 
-clf.fit(X=X_train, y=y_train)
+	clf.fit(X_train, y_train)
 
-predicted_labels = clf.predict(X_test)
+	predicted_labels = clf.predict(X_test)
 
-# Compute the testing accuracy
-Accuracy = 0
-for index in range(len(predicted_labels)):
-	current_label = y_test[index]
-	predicted_label = predicted_labels[index]
+	# Compute the testing accuracy
+	Accuracy = 0
+	for index in range(len(predicted_labels)):
+		current_label = y_test[index]
+		predicted_label = predicted_labels[index]
 
-	if current_label == predicted_label:
-		Accuracy += 1
+		if current_label == predicted_label:
+			Accuracy += 1
 
-Accuracy /= len(train_labels)
+	Accuracy /= len(train_labels)
 
-# Print stuff
-print("Sklearn Decision Tree Classification Accuracy = ", Accuracy)
+	# Print stuff
+	print("Manual Decision Tree Classification Accuracy = ", Accuracy)
 
 
-# **************************************************************
-# Apply the Decision Tree for Regression Manually
-# **************************************************************
-# Load the Boston housing data set to regression training
-# NOTE that this loads as a dictionairy
-boston_dataset = load_boston()
+	# **************************************************************
+	# Apply the Decision Tree for Classification using Sklearn
+	# **************************************************************
 
-train_data = np.array(boston_dataset.data)
-train_labels = np.array(boston_dataset.target)
-num_features = boston_dataset.data.shape[1]
+	clf = DecisionTreeClassifier(criterion="gini", splitter="best")
 
-# Randomly shuffle the data
-train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
+	clf.fit(X=X_train, y=y_train)
 
-# Normalize the data to have zero-mean and unit variance
-train_data = ml_helpers.normalize_data(train_data)
+	predicted_labels = clf.predict(X_test)
 
-X_train, X_test, y_train, y_test = ml_helpers.train_test_split(train_data, train_labels, test_size=0.4)
+	# Compute the testing accuracy
+	Accuracy = 0
+	for index in range(len(predicted_labels)):
+		current_label = y_test[index]
+		predicted_label = predicted_labels[index]
 
-clf = RegressionTree()
+		if current_label == predicted_label:
+			Accuracy += 1
 
-clf.fit(X_train, y_train)
+	Accuracy /= len(train_labels)
 
-predicted_values = clf.predict(X_test)
+	# Print stuff
+	print("Sklearn Decision Tree Classification Accuracy = ", Accuracy)
 
-mse = ml_helpers.mean_squared_error(y_test, predicted_values)
 
-print ("Manual Decision Tree Regression Mean Squared Error:", mse)
+	# **************************************************************
+	# Apply the Decision Tree for Regression Manually
+	# **************************************************************
+	# Load the Boston housing data set to regression training
+	# NOTE that this loads as a dictionairy
+	boston_dataset = load_boston()
 
-# Now plot the manual Linear Regression
-g = plt.figure(1)
-plt.plot(y_test, predicted_values,'ro')
-plt.plot([0,50],[0,50], 'g-')
-plt.xlabel('real')
-plt.ylabel('predicted')
-g.show()
+	train_data = np.array(boston_dataset.data)
+	train_labels = np.array(boston_dataset.target)
+	num_features = boston_dataset.data.shape[1]
 
-# **************************************************************
-# Apply the Decision Tree for Regression using Sklearn
-# **************************************************************
-clf = DecisionTreeRegressor()
+	# Randomly shuffle the data
+	train_data, train_labels = ml_helpers.shuffle_data(train_data, train_labels)
 
-clf.fit(X_train, y_train)
+	# Normalize the data to have zero-mean and unit variance
+	train_data = ml_helpers.normalize_data(train_data)
 
-predicted_values = clf.predict(X_test)
+	X_train, X_test, y_train, y_test = ml_helpers.train_test_split(train_data, train_labels, test_size=0.4)
 
-mse = ml_helpers.mean_squared_error(y_test, predicted_values)
+	clf = RegressionTree()
 
-print ("Sklearn Decision Tree Regression Mean Squared Error:", mse)
+	clf.fit(X_train, y_train)
 
-# Now plot the manual Linear Regression
-g = plt.figure(2)
-plt.plot(y_test, predicted_values,'ro')
-plt.plot([0,50],[0,50], 'g-')
-plt.xlabel('real')
-plt.ylabel('predicted')
-g.show()
+	predicted_values = clf.predict(X_test)
 
-# Keep the plots alive until we get a user input
-print("Press any key to exit")
-input()
+	mse = ml_helpers.mean_squared_error(y_test, predicted_values)
+
+	print ("Manual Decision Tree Regression Mean Squared Error:", mse)
+
+	# Now plot the manual Linear Regression
+	g = plt.figure(1)
+	plt.plot(y_test, predicted_values,'ro')
+	plt.plot([0,50],[0,50], 'g-')
+	plt.xlabel('real')
+	plt.ylabel('predicted')
+	g.show()
+
+	# **************************************************************
+	# Apply the Decision Tree for Regression using Sklearn
+	# **************************************************************
+	clf = DecisionTreeRegressor(criterion="mse", splitter="best")
+
+	clf.fit(X_train, y_train)
+
+	predicted_values = clf.predict(X_test)
+
+	mse = ml_helpers.mean_squared_error(y_test, predicted_values)
+
+	print ("Sklearn Decision Tree Regression Mean Squared Error:", mse)
+
+	# Now plot the manual Linear Regression
+	g = plt.figure(2)
+	plt.plot(y_test, predicted_values,'ro')
+	plt.plot([0,50],[0,50], 'g-')
+	plt.xlabel('real')
+	plt.ylabel('predicted')
+	g.show()
+
+	# Keep the plots alive until we get a user input
+	print("Press any key to exit")
+	input()
+
+if __name__ == "__main__":
+    main()

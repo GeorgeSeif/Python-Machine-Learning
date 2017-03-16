@@ -76,6 +76,26 @@ def divide_on_feature(X, feature_i, threshold):
 
     return np.array([X_1, X_2])
 
+# Return random subsets (with replacements) of the data
+def get_random_subsets(X, y, n_subsets, replacements=True):
+    n_samples = np.shape(X)[0]
+    # Concatenate x and y and do a random shuffle
+    X_y = np.concatenate((X, y.reshape((1, len(y))).T), axis=1)
+    np.random.shuffle(X_y)
+    subsets = []
+
+    # Uses 50% of training samples without replacements
+    subsample_size = n_samples // 2
+    if replacements:
+        subsample_size = n_samples      # 100% with replacements
+
+    for _ in range(n_subsets):
+        idx = np.random.choice(range(n_samples), size=np.shape(range(subsample_size)), replace=replacements)
+        X = X_y[idx][:, :-1]
+        y = X_y[idx][:, -1]
+        subsets.append([X, y])
+    return subsets
+
 # Calculate the entropy of label array y
 def calculate_entropy(y):
     log2 = lambda x: np.log(x) / np.log(2)
