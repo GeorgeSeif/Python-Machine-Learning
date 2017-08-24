@@ -2,7 +2,9 @@
 
 ## Description
 
-A set of machine learing algorithms implemented in Python 3.5. Programs can one of three implementations:
+A set of machine learing algorithms implemented in Python 3.5. Please also see my related repository for [Python Data Science](https://github.com/GeorgeSeif/Data-Science-Python) which contains various data science scripts for data analysis and visualisation.
+
+Programs can one of three implementations:
 
 1. Algorithm is implemented from scratch in Python *
 2. Algorithm is implemented using Scikit Learn * *
