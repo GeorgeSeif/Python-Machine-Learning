@@ -10,21 +10,28 @@ A set of machine learing algorithms implemented in Python 3.5. Programs can one 
 
 The included programs are:
 
-1. Linear Regression * * *
-2. Logistic Regression for Classification * * *
-3. Logistic Regression for Classification with PCA * * *
-4. Naive Bayes Classification * * *
-5. Support Vector Machine Classification * *
-6. Neural Network Classification * *
-7. Neural Network Regression * *
-8. K-Means Clustering * * *
-9. K-Nearest-Neighbor * * * 
-10. Mean-Shift Clustering * * *
-11. K-Mediods Clustering *
-12. DBSCAN Clustering * * * 
-13. Decision Tree Regression * * * 
-14. Decision Tree Classification * * *
-15. Random Forest Classification * * *
+- **Regression:**
+	- Linear Regression * * *
+	- Neural Network Regression * *
+	- Decision Tree Regression * * * 
+
+- **Classification:**
+	- Logistic Regression for Classification * * *
+	- Logistic Regression for Classification with PCA * * *
+	- Naive Bayes Classification * * *
+	- Support Vector Machine Classification * *
+	- Neural Network Classification * *
+	- Decision Tree Classification * * *
+	- Random Forest Classification * * *
+
+- **Clustering:**
+	- K-Means Clustering * * *
+	- K-Nearest-Neighbor * * * 
+	- Mean-Shift Clustering * * *
+	- K-Mediods Clustering *
+	- DBSCAN Clustering * * * 
+
+
 
 ## Helpers
 In addition the the main algorithm files, we have the following set of helper functions in the "ml_helpers.py" file:
