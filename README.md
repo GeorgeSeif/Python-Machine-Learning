@@ -13,26 +13,26 @@ Programs can one of three implementations:
 The included programs are:
 
 - **Regression:**
-	- Linear Regression * * *
-	- Neural Network Regression * *
-	- Decision Tree Regression * * * 
+	- [Linear Regression](https://github.com/TheStrangerDoctor/Python-Machine-Learning/blob/master/Regression/linear_regression.py) * * *
+	- [Neural Network Regression](https://github.com/TheStrangerDoctor/Python-Machine-Learning/blob/master/Regression/neural_network_reg.py) * *
+	- [Decision Tree Regression](https://github.com/TheStrangerDoctor/Python-Machine-Learning/blob/master/Regression/decision_tree_regression.py) * * * 
 
 - **Classification:**
-	- Logistic Regression for Classification * * *
-	- Logistic Regression for Classification with PCA * * *
-	- Naive Bayes Classification * * *
-	- Support Vector Machine Classification * *
-	- Neural Network Classification * *
-	- Decision Tree Classification * * *
-	- Random Forest Classification * * *
+	- [Logistic Regression for Classification](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/logistic_regression.py) * * *
+	- [Logistic Regression for Classification with PCA](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/pca_logistic_regression.py) * * *
+	- [Naive Bayes Classification](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/naive_bayes.py) * * *
+	- [Support Vector Machine Classification](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/support_vector_machine.py) * *
+	- [Neural Network Classification](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/neural_network_class.py) * *
+	- [Decision Tree Classification]() * * *
+	- [Random Forest Classification](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Classification/random_forest.py) * * *
 
 - **Clustering:**
-	- K-Means Clustering * * *
-	- K-Nearest-Neighbor * * * 
-	- Mean-Shift Clustering * * *
-	- K-Mediods Clustering *
-	- DBSCAN Clustering * * * 
-
+	- [K-Means Clustering](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Clustering/kmeans.py) * * *
+	- [K-Nearest-Neighbor](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Clustering/k_nearest_neighbor.py) * * * 
+	- [Mean-Shift Clustering](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Clustering/mean_shift.py) * * *
+	- [K-Mediods Clustering](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Clustering/kmediods.py) *
+	- [DBSCAN Clustering](https://github.com/GeorgeSeif/Python-Machine-Learning/blob/master/Clustering/dbscan.py) * * * 
+[
 ## Information
 
 Here are the descriptions of the above machine learning algorithms
